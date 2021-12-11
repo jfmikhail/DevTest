@@ -21,7 +21,7 @@ export class JobDetailComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.jobService.GetJob(this.jobId).subscribe(job => this.job = job);
+    this.jobService.GetJob(this.jobId).subscribe(jobResult=> this.job = jobResult.data);
   }
 
 }

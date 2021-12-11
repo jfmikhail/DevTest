@@ -1,50 +1,41 @@
-﻿using System;
+﻿using DeveloperTest.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using DeveloperTest.Business.Interfaces;
-using DeveloperTest.Models;
+using System.Threading.Tasks;
 
 namespace DeveloperTest.Controllers
 {
     [ApiController, Route("[controller]")]
-    public class JobController : ControllerBase
+    public class JobController : BaseController
     {
-        private readonly IJobService jobService;
+        private readonly IGetAllJobsApplicationService _getAllJobsApplicationService;
+        private readonly IGetJobApplicationService _getJobApplicationService;
+        private readonly ICreateJobApplicationService _createJobApplicationService;
 
-        public JobController(IJobService jobService)
+        public JobController(IGetAllJobsApplicationService getAllJobsApplicationService,
+            IGetJobApplicationService getJobApplicationService,
+            ICreateJobApplicationService createJobApplicationService)
         {
-            this.jobService = jobService;
+            _getAllJobsApplicationService = getAllJobsApplicationService;
+            _getJobApplicationService = getJobApplicationService;
+            _createJobApplicationService = createJobApplicationService;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return Ok(jobService.GetJobs());
+            return MapResponse(await _getAllJobsApplicationService.ExecuteAsync(new GetAllJobsQuery()));
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var job = jobService.GetJob(id);
-
-            if (job == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(job);
+            return MapResponse(await _getJobApplicationService.ExecuteAsync(new GetJobQuery(id)));
         }
 
         [HttpPost]
-        public IActionResult Create(BaseJobModel model)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateJobCommand job)
         {
-            if (model.When.Date < DateTime.Now.Date)
-            {
-                return BadRequest("Date cannot be in the past");
-            }
-
-            var job = jobService.CreateJob(model);
-
-            return Created($"job/{job.JobId}", job);
+            return MapResponse(await _createJobApplicationService.ExecuteAsync(job));
         }
     }
 }

@@ -1,5 +1,10 @@
-<p>JobId: {{job.jobId}}</p>
-<p>Engineer: {{job.engineer}}</p>
-<p>When: {{job.when | date:'shortDate'}}</p>
+<div style="margin:15px" *ngIf="job">
+    <p>JobId: {{job.jobId}}</p>
+    <p>Engineer: {{job.engineer}}</p>
+    <p>When: {{job.when | date:'shortDate'}}</p>
+    <h2>Customer</h2>
+    <p>Name: {{job.customer.name}}</p>
+    <p>Type: {{job.customer.type}}</p>
+</div>
 
-<a [routerLink]="['/jobs']">Back</a>
+<span style="margin:15px"><a [routerLink]="['/jobs']">Back</a></span>

@@ -1,0 +1,19 @@
+h2 {
+    margin-left: 15px;
+}
+
+table {
+    margin: 15px;
+    border-collapse: collapse;
+  
+    th, td {
+      border: 1px solid #ddd;
+      padding: 5px;
+      min-width: 100px;
+      text-align: left;
+    }
+  
+    th {
+      background-color: #ddd;
+    }
+}

@@ -1,0 +1,29 @@
+<div style="margin:15px" *ngIf="customer">
+    <p>CustomerId: {{customer.customerId}}</p>
+    <p>Name: {{customer.name}}</p>
+    <p>Type: {{customer.type}}</p>
+</div>
+
+<div *ngIf="customer">
+    <h2>Jobs list</h2>
+    <table spacing="0">
+        <thead>
+            <tr>
+            <th>Engineer</th>
+            <th>When</th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let job of customer.jobs">
+            <td>{{job.engineer}}</td>
+            <td>{{job.when | date:'shortDate'}}</td>
+            <td>
+                <a [routerLink]="['/job', job.jobId]">Open</a>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<span  style="margin:15px"><a  [routerLink]="['/customers']">Back</a></span>
