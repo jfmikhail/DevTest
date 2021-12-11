@@ -10,7 +10,7 @@ namespace DeveloperTest.Application.Validators
         {
             RuleFor(command => command).NotNull();
             RuleFor(command => command.Engineer).NotNull().NotEmpty();
-            RuleFor(command => command.When).GreaterThan(DateTime.Today)
+            RuleFor(command => command.When).GreaterThanOrEqualTo(DateTime.Today)
                 .WithMessage("Date cannot be in the past");
             RuleFor(command => command.CustomerId).GreaterThan(0).WithMessage("Assigned customer is required");
         }
