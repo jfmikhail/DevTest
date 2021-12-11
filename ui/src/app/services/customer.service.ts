@@ -5,23 +5,27 @@ import { Observable } from 'rxjs';
 import { ApiResult } from './contracts/apiResult.model';
 import { GetCustomersResponse } from './contracts/getCustomersResponse';
 import { CreateCustomerResponse } from './contracts/createCustomerResponse';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
 
-  constructor(private httpClient: HttpClient) { }
+  private apiUrl;
+  constructor(private httpClient: HttpClient) {
+    this.apiUrl = environment.apiUrl;
+   }
 
   public getCustomers(): Observable<ApiResult<GetCustomersResponse>> {
-    return this.httpClient.get<ApiResult<GetCustomersResponse>>('http://localhost:63235/customer');
+    return this.httpClient.get<ApiResult<GetCustomersResponse>>(`${this.apiUrl}/customer`);
   }
 
   public getCustomer(customerId: number): Observable<ApiResult<CustomerModel>> {
-    return this.httpClient.get<ApiResult<CustomerModel>>(`http://localhost:63235/customer/${customerId}`);
+    return this.httpClient.get<ApiResult<CustomerModel>>(`${this.apiUrl}/customer/${customerId}`);
   }
 
   public createCustomer(customer: CustomerModel): Observable<ApiResult<CreateCustomerResponse>> {
-    return this.httpClient.post<ApiResult<CreateCustomerResponse>>('http://localhost:63235/customer', customer);
+    return this.httpClient.post<ApiResult<CreateCustomerResponse>>(`${this.apiUrl}/customer`, customer);
   }
 }
