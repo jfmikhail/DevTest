@@ -11,9 +11,9 @@ import { NgForm } from '@angular/forms';
 })
 export class CustomerComponent implements OnInit {
 
-  private customers: CustomerModel[] = [];
-  private customerTypes: CustomerType[] = [];
-  private newCustomer: CustomerModel = {
+  public customers: CustomerModel[] = [];
+  public customerTypes: CustomerType[] = [];
+  public newCustomer: CustomerModel = {
     customerId: undefined,
     name: undefined,
     type: undefined,

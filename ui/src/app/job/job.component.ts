@@ -14,7 +14,7 @@ import { CustomerModel } from '../models/customer.model';
 export class JobComponent implements OnInit {
 
   public engineers: string[] = [];
-  private customers: CustomerModel[] = [];
+  public customers: CustomerModel[] = [];
   public jobs: JobModel[] = [];
 
   public newJob: JobModel = {

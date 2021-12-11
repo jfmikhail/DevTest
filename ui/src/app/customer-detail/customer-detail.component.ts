@@ -11,7 +11,7 @@ import { CustomerModel } from '../models/customer.model';
 export class CustomerDetailComponent implements OnInit {
 
   private customerId: number;
-  private customer: CustomerModel = undefined;
+  public customer: CustomerModel = undefined;
 
   constructor(
     private route: ActivatedRoute,
